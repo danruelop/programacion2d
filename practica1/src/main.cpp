@@ -4,9 +4,11 @@
 #include <litegfx.h>
 #include <glfw3.h>
 #include <iostream>
+#include <sstream>
 #include <Vec2.h>
 #include <cmath>
 #include <math.h>
+#include <string>
 
 using namespace std;
 
@@ -15,10 +17,16 @@ float rpY;
 float npX;
 float npY;
 
+template <typename T>
+std::string stringFromNumber(T val) {
+  std::ostringstream stream;
+  stream << std::fixed << val;
+  return stream.str();
+}
+
+
 int main() {
-
 	
-
 	if (glfwInit())
 	{
 		double m_xpos;
@@ -41,19 +49,21 @@ int main() {
 
 		do  {
 
-			float angle = (3.14f / 6) * glfwGetTime(); //el ángulo que va aumentando con respecto del tiempo
+			float angle = (3.14f / 6) * glfwGetTime(); //el ángulo que va aumentando con respecto del tiempo /6 para que sean 32º
 
 			float rpX = (float)*pm_xpos - cube_width / 2; // posición X de referencia (del cubo)
 			float rpY = (float)*pm_ypos - cube_height / 2; // poisición Y de referencia (del cubo)
 			
 			Vec2 vecA = Vec2(rpX,rpY);
-			Vec2 vecB = Vec2(npX, npY);
+			
 
 			/*float angle = vecA.angleVec2(vecB);
 			angle += 0, 55.f;*/
 
 			float npX = rpX + 100.f * sin(angle);  // *sin(vecA.angleVec2(vecB));
 			float npY = rpY + 100.f * cos(angle); // *cos(vecA.angleVec2(vecB));
+
+			Vec2 vecB = Vec2(npX, npY);
 			
 			// pintar background
 			lgfx_clearcolorbuffer(0.3f, 0.3f, 0.3f);
@@ -75,6 +85,14 @@ int main() {
 
 			//círculo que orbita
 			lgfx_drawoval(npX, npY, 30.f, 30.f);
+
+			//mostrar info en pantalla
+			std::string title = "Distancia: "
+				+ stringFromNumber(vecA.distanceVec2(vecB))
+				+ "-- Angulo: "
+				+ stringFromNumber(vecA.angleVec2(vecB));
+
+			glfwSetWindowTitle(window, title.c_str());
 			
 			glfwSwapBuffers(window);
 

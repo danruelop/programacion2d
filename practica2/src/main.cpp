@@ -70,9 +70,11 @@ const char* fire = "data/fire.png";
 const char* grille = "data/grille.png";
 const char* light = "data/light.png";
  
-void setupBackground(ltex_t* texture, float texture_width, float texture_height, float windows_width)
+void setupBackground(ltex_t* texture, float texture_width, float texture_height, float windows_width, float windows_height)
 {
-	int tempSize = (windows_width / texture_width);
+	float biggestW = windows_width > windows_height ? windows_width : windows_height;
+	float biggestT = texture_width > texture_height ? texture_width : texture_height;
+	int tempSize = (biggestW / biggestT) + 1;
 	int i = 0;
 
 	while (tempSize >= i)
@@ -201,7 +203,8 @@ int main() {
 			ltex_draw(wallTexture, wall_width, wall_height);*/
 			glfwGetWindowSize(window, p_actualWindowsWidth, p_actualWindowsHeight);
 
-			setupBackground(wallTexture, wall_width, wall_height, actualWindowsWidth);
+			setupBackground(wallTexture, wall_width, wall_height, actualWindowsWidth, actualWindowsHeight);
+			
 
 			//pintar fuego
 			//ltex_draw(fireTexture, m_xpos, m_ypos);
@@ -213,18 +216,7 @@ int main() {
 
 			
 			lgfx_setblend(BLEND_ALPHA);
-			ltex_draw(grilleTexture, 0, 0);
-			ltex_draw(grilleTexture, 0, grille_height);
-			ltex_draw(grilleTexture, 0, 2*grille_height);
-			ltex_draw(grilleTexture, grille_width, 0);
-			ltex_draw(grilleTexture, 2*grille_width, 0);
-			ltex_draw(grilleTexture, 3 * grille_width, 0);
-			ltex_draw(grilleTexture, grille_width, grille_height);
-			ltex_draw(grilleTexture, grille_width, 2*grille_height);
-			ltex_draw(grilleTexture, 2 * grille_width, grille_height);
-			ltex_draw(grilleTexture, 3 * grille_width, grille_height);
-			ltex_draw(grilleTexture, 2*grille_width, 2*grille_height);
-			ltex_draw(grilleTexture, 3 * grille_width, 2 * grille_height);
+			setupBackground(grilleTexture, grille_width, grille_height, actualWindowsWidth, actualWindowsHeight);
 			
 			lgfx_setblend(BLEND_MUL);
 			ltex_drawrotsized(lightTexture, m_xpos, m_ypos,
@@ -232,8 +224,12 @@ int main() {
 				light_width, light_height,
 				0, 0, 1, 1);
 
-			//lgfx_setcolor(0, 0, 0, 0);
-			//lgfx_drawrect(m_xpos + light_width, m_ypos, 100, 100);
+			lgfx_setcolor(0, 0, 0, 0);
+			lgfx_drawrect(m_xpos + light_width/2, m_ypos -2500, 5000, 5000);
+			lgfx_drawrect(m_xpos - light_width/2 -5000, m_ypos - 2500, 5000, 5000);
+			lgfx_drawrect(m_xpos - light_width/2, m_ypos - light_height/2 - 5000, 5000, 5000);
+			lgfx_drawrect(m_xpos - light_width / 2, m_ypos + light_height / 2 , 5000, 5000);
+			//lgfx_drawrect(m_xpos - 2500, m_ypos + light_height, 5000, 5000);
 			
 
 			

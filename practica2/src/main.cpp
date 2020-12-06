@@ -57,6 +57,7 @@ float angle = 0.f;
 float maxAngle = 10.f;
 float minAngle = -10.f;
 float rotationAngle;
+bool rotRight = true;
 
 float maxSize = 1.2f;
 float minSize = 0.8f;
@@ -83,7 +84,7 @@ void setupBackground(ltex_t* texture, float texture_width, float texture_height,
 		while (j <= tempSize)
 		{
 			ltex_draw(texture, i * texture_width, j * texture_height);
-			j += 1;
+			j++;
 		}
 		i++;
 	}
@@ -110,7 +111,6 @@ ltex_t* loadTexture(const char* filename, int* i_width, int* i_height) {
 		tex = ltex_alloc(tempX, tempY, 0);
 		if(tex != nullptr)
 		{
-			
 			ltex_setpixels(tex, arrayBytes);
 		}
 	}
@@ -147,12 +147,10 @@ int main() {
 		ltex_t* fireTexture = loadTexture(fire, p_fire_width, p_fire_height);
 		//cargar grille
 		ltex_t* grilleTexture = loadTexture(grille, p_grille_width, p_grille_height);
-
+		//cargar luz
 		ltex_t* lightTexture = loadTexture(light, p_light_width, p_light_height);
 
 		while(!glfwWindowShouldClose(window))
-
-
 		{
 
 			static float previous_seconds = static_cast<float>(glfwGetTime());
@@ -162,15 +160,22 @@ int main() {
 
 			lgfx_setup2d(actualWindowsWidth, actualWindowsHeight);
 
-			if (angle == 0 || angle <= minAngle) 
-			{
+			if (rotRight == true) {
 				rotationAngle = 10.f * elapsed_seconds;
 				angle += 10.f;
-
-			} else if (angle >= maxAngle)
+				if( angle >= maxAngle )
+				{
+					rotRight = false;
+				}
+			}
+			else
 			{
 				rotationAngle = -10.f * elapsed_seconds;
 				angle -= 10.f;
+				if (angle <= minAngle) 
+				{
+					rotRight = true;
+				}
 			}
 
 			if (grow == true)
@@ -194,18 +199,16 @@ int main() {
 			// pintar background
 
 			lgfx_clearcolorbuffer(1.f, 1.f, 1.f);
-			//mezclado SOLID para la pared
-			lgfx_setblend(BLEND_ALPHA);
-			//pintar pared
-			/*ltex_draw(wallTexture, 0, 0);
-			ltex_draw(wallTexture, 0, wall_height);
-			ltex_draw(wallTexture, wall_width, 0);
-			ltex_draw(wallTexture, wall_width, wall_height);*/
+
+			//obtener tamaño de la ventana
 			glfwGetWindowSize(window, p_actualWindowsWidth, p_actualWindowsHeight);
 
+			//mezclado SOLID para la pared
+			lgfx_setblend(BLEND_ALPHA);
+
+			//pintar pared
 			setupBackground(wallTexture, wall_width, wall_height, actualWindowsWidth, actualWindowsHeight);
 			
-
 			//pintar fuego
 			//ltex_draw(fireTexture, m_xpos, m_ypos);
 			lgfx_setblend(BLEND_ADD);
@@ -214,7 +217,7 @@ int main() {
 				fire_width*multSize, fire_height*multSize,
 				0, 0, 1,1);
 
-			
+			//pintar rejas
 			lgfx_setblend(BLEND_ALPHA);
 			setupBackground(grilleTexture, grille_width, grille_height, actualWindowsWidth, actualWindowsHeight);
 			
@@ -229,7 +232,7 @@ int main() {
 			lgfx_drawrect(m_xpos - light_width/2 -5000, m_ypos - 2500, 5000, 5000);
 			lgfx_drawrect(m_xpos - light_width/2, m_ypos - light_height/2 - 5000, 5000, 5000);
 			lgfx_drawrect(m_xpos - light_width / 2, m_ypos + light_height / 2 , 5000, 5000);
-			//lgfx_drawrect(m_xpos - 2500, m_ypos + light_height, 5000, 5000);
+			
 			
 
 			
@@ -256,6 +259,7 @@ int main() {
 		ltex_free(fireTexture);
 		ltex_free(grilleTexture);
 		ltex_free(lightTexture);
+		stbi_image_free(bufferN);
 
 		
 

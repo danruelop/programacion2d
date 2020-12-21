@@ -11,11 +11,11 @@ private:
 	
 
 public:
-	float getPosX() { return this->posX; };
-	float getPosY() { return this->posY; };
+	float getPosX() { return this->posX; }
+	float getPosY() { return this->posY; }
 	Vec2(float posX, float posY);
 	
-	Vec2 getThisVector2D() { return Vec2(this->posX, this->posY); };
+	Vec2 getThisVector2D() { return Vec2(this->posX, this->posY); }
 
 	Vec2 sumVec2(const Vec2& other);
 

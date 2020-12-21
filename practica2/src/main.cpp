@@ -241,9 +241,9 @@ int main() {
 
 			std::string title = 
 				+ "-- Angulo: "
-				+ stringFromNumber(angle)
+				+ stringFromNumber(angle*elapsed_seconds)
 				+ "-- Tamaño: "
-				+ stringFromNumber(multSize);
+				+ stringFromNumber(multSize * elapsed_seconds);
 
 			glfwSetWindowTitle(window, title.c_str());
 

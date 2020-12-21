@@ -1,3 +1,6 @@
-﻿  main.cpp
+﻿  Vec2.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica1\src\Vec2.cpp(73,12): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+  main.cpp
 C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica1\src\main.cpp(52,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+  Generando código...
   programacion2d.vcxproj -> C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica1\project\Debug\programacion2d.exe

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+
 #include <cmath>
 
 class Vec2
@@ -8,13 +8,15 @@ class Vec2
 private:
 	float posX;
 	float posY;
-	
+
 
 public:
-	float getPosX() { return this->posX; };
-	float getPosY() { return this->posY; };
+	float getPosX() const { return this->posX; };
+	float getPosY() const { return this->posY; };
+
 	Vec2(float posX, float posY);
-	
+	Vec2();
+
 	Vec2 getThisVector2D() { return Vec2(this->posX, this->posY); };
 
 	Vec2 sumVec2(const Vec2& other);

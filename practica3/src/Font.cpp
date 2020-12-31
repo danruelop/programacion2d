@@ -1,71 +1,39 @@
-#define LITE_GFX_IMPLEMENTATION
-#define STB_IMAGE_IMPLEMENTATION
-#define STB_TRUETYPE_IMPLEMENTATION
 
-#include <litegfx.h>
-#include <glfw3.h>
+#define _CRT_SECURE_NO_WARNINGS
+
+#include "litegfx.h"
 #include <iostream>
 #include "Font.h"
-#include <stb_image.h>
-#include "stb_truetype.h"
 
-long ttf_size;
+float Font::height = 0;
+
+stbtt_aligned_quad* pRectInfo = new stbtt_aligned_quad();
+
+
 unsigned char* fontBuffer;
-unsigned char* pPixels_alphaBuffer;
-unsigned char* pPixels_colorBuffer;
+unsigned char colorBuffer[512 * 512 * 4];
+unsigned char* pColorBuffer = colorBuffer;
 
-int sizeOfABuffer = sizeof(pPixels_alphaBuffer);
-int* pSizeOfABuffer = &sizeOfABuffer;
+unsigned char bufferAlpha[512 * 512];
+unsigned char* pBufferAlpha = bufferAlpha;
 
-//stbtt_bakedchar chardata;
-stbtt_bakedchar* chardata;
-
-int alphaBuffer;
-int colorBuffer;
-
-int* pBufferN;
-int* pTextureWidth;
-int* pTextureHeight;
-
-stbtt_aligned_quad* pRBackground;
-
+float* c_xpos = new float;
+float* c_ypos = new float;
 
 Font::Font()
 {
-};
+}
 
 Font::~Font()
 {
-};
-
-ltex_t* loadTexture(const char* filename, int* i_width, int* i_height) {
-
-	ltex_t* tex;
-	//unsigned char* arrayBytes;
-	//arrayBytes = stbi_load(filename, i_width, i_height, pBufferN, 4);
-
-	int tempX = *i_width;
-	int tempY = *i_height;
-
-	if (pPixels_alphaBuffer != nullptr)
-	{
-		tex = ltex_alloc(tempX, tempY, 0);
-		if (tex != nullptr)
-		{
-			ltex_setpixels(tex, pPixels_alphaBuffer);
-		}
-	}
-	else {
-		tex = nullptr;
-	}
-	return tex;
 }
 
-Font* Font::load(const char* filename, float height) 
+void Font::chargeInMemory(const char* filename)
 {
-	Font::height = height;
+	
+	long ttf_size;
 
-	FILE* fontFile = fopen(filename, "rb");
+	FILE* fontFile = fopen(filename, "r");
 
 	fseek(fontFile, 0, SEEK_END);
 
@@ -74,65 +42,60 @@ Font* Font::load(const char* filename, float height)
 	fseek(fontFile, 0, SEEK_SET); /* reset */
 
 	//data
-	fontBuffer = (stbi_uc*)malloc(ttf_size);
+	fontBuffer = (unsigned char*)malloc(ttf_size);
 
 	fread(fontBuffer, ttf_size, 1, fontFile);
 
 	fclose(fontFile);
 
+}
+
+Font* Font::load(float height, Font* font)
+{
+	int Error;
+
+	font->height = height;
+
 	//renderiza los caracteres pedidos en un buffer(solo componente alpha)
-	alphaBuffer = stbtt_BakeFontBitmap(
-		//archivo ttf volcado en memoria
-		fontBuffer,
-		//0 para fuentes ttf
-		0, 
-		//altura de la fuente
-		height,
-		//puntero donde se guardará el alpha buffer
-		pPixels_alphaBuffer,
-		//ancho del buffer anterior
-		sizeof(pPixels_alphaBuffer),
-		//altura del buffer anterior
-		sizeof(pPixels_alphaBuffer),
-		97, 77,
-		chardata);
-
-	
-
-	//renderizar color buffer
-	colorBuffer = stbtt_BakeFontBitmap(
+	Error = stbtt_BakeFontBitmap(
 		//archivo ttf volcado en memoria
 		fontBuffer,
 		//0 para fuentes ttf
 		0,
 		//altura de la fuente
 		height,
-		//puntero donde se guardará el color buffer
-		pPixels_colorBuffer,
+		//puntero donde se guardará el alpha buffer
+		pBufferAlpha,
 		//ancho del buffer anterior
-		sizeof(pPixels_alphaBuffer) *4,
+		512,
 		//altura del buffer anterior
-		sizeof(pPixels_alphaBuffer) *4,
-		97, 77,
-		chardata);
+		512,
+		0, 255,
+		font->chardata);
 
-	int* pAlphaBuffer = &alphaBuffer;
-	int* pColorBuffer = &alphaBuffer;
+	;
+	int counterBufferAlpha = 0;//1
 
-	loadTexture(filename, pTextureWidth, pTextureHeight);
-	delete pAlphaBuffer;
-	delete pColorBuffer;
+	for (size_t i = 0; i < 512 * 512 * 4; i++)
+	{
+		if (i % 4 == 3)
+		{
+			pColorBuffer[i] = pBufferAlpha[counterBufferAlpha];
+			counterBufferAlpha++;
+		}
+		else
+		{
+			pColorBuffer[i] = 255;
+		}
+	}
 
-	int tempTW = *pTextureWidth;
-	int tempTH = *pTextureHeight;
+	font->tex = ltex_alloc(512, 512, 0);
+	if (font->tex != nullptr)
+	{
+		ltex_setpixels(font->tex, pColorBuffer);
+	}
 
-	
-	stbtt_GetBakedQuad(chardata, tempTW, tempTH, *pRBackground,
-		float* xpos, float* ypos, pRBackground, 1);
-
-
-
-	return nullptr;
+	return font;	
 }
 
 float Font::getHeight() const
@@ -142,10 +105,32 @@ float Font::getHeight() const
 
 Vec2 Font::getTextSize(const char* text) const
 {
-
+	return Vec2();
 }
 
-void Font::draw(const char* text, const Vec2& pos) const
+
+void Font::draw(const char* text, const Vec2& pos, SColor randomColor) const
 {
+	*c_xpos = pos.getPosX();
+	*c_ypos = pos.getPosY();
+
+	for (size_t i = 0; i < strlen(text); i++) 
+	{
+		stbtt_GetBakedQuad(chardata,
+			//ancho y alto de la fuente
+			512, 512,
+			text[i],
+			c_xpos, c_ypos,
+			pRectInfo,
+			1);
+
+		lgfx_setcolor(randomColor.r, randomColor.g, randomColor.b, 255);
+
+		ltex_drawrotsized(tex, *c_xpos, *c_ypos,
+			0, 0.5, 0.5,
+			pRectInfo->x1 - pRectInfo->x0, pRectInfo->y1 - pRectInfo->y0,
+			pRectInfo->s0, pRectInfo->t0, pRectInfo->s1, pRectInfo->t1);
+
+	}
 
 }

@@ -12,7 +12,11 @@ Vec2::Vec2(float pos_x, float pos_y)
 	this->posX = pos_x;
 	this->posY = pos_y;
 
-};
+}
+Vec2::Vec2()
+{
+}
+;
 
 
 //A + B

@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\CPrintedText.cpp" />
     <ClCompile Include="..\src\Font.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\lib\CPrintedText.h" />
     <ClInclude Include="..\lib\Font.h" />
     <ClInclude Include="..\lib\litegfx.h" />
     <ClInclude Include="..\lib\Vec2.h" />

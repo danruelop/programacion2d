@@ -22,13 +22,12 @@ private:
 	stbtt_bakedchar chardata[256];
 	ltex_t* tex;
 
-public:
 
-	
-	static Font* load(float height, Font* font);
+public:
+	static Font* load(float height, Font* font, SColor randomColor);
 	float getHeight() const;
 	Vec2 getTextSize(const char* text) const;
-	void draw(const char* text, const Vec2& pos, SColor randomColor) const;
+	void draw(const char* text, const Vec2& pos) const;
 	static void chargeInMemory(const char* filename);
 
 public:

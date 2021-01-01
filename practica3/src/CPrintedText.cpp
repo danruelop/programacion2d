@@ -26,8 +26,8 @@ void CPrintedText::setPosX(float newPosX)
 void CPrintedText::printText()
 {
 	this->font->chargeInMemory(this->selectedFont);
-	this->font->load(40, this->font);
-	this->font->draw(this->textToPrint, getPosVector(), this->randomColor);
+	this->font->load(40, this->font, this->randomColor);
+	this->font->draw(this->textToPrint, getPosVector());
 }
 
 Vec2 CPrintedText::getPosVector()

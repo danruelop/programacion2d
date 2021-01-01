@@ -1,6 +1,12 @@
-﻿  main.cpp
+﻿  CPrintedText.cpp
+  Font.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\Font.cpp(90,34): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\Font.cpp(94,34): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\Font.cpp(99,34): warning C4244: '=': conversion from 'float' to 'unsigned char', possible loss of data
+  main.cpp
 C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\main.cpp(105,19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
 C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\main.cpp(106,19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
 C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\main.cpp(107,19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
 C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\src\main.cpp(115,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   programacion2d.vcxproj -> C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica3\project\Debug\programacion2d.exe

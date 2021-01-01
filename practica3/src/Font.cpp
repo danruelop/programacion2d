@@ -9,7 +9,6 @@ float Font::height = 0;
 
 stbtt_aligned_quad* pRectInfo = new stbtt_aligned_quad();
 
-
 unsigned char* fontBuffer;
 unsigned char colorBuffer[512 * 512 * 4];
 unsigned char* pColorBuffer = colorBuffer;
@@ -50,7 +49,7 @@ void Font::chargeInMemory(const char* filename)
 
 }
 
-Font* Font::load(float height, Font* font)
+Font* Font::load(float height, Font* font, SColor randomColor)
 {
 	int Error;
 
@@ -75,6 +74,7 @@ Font* Font::load(float height, Font* font)
 
 	;
 	int counterBufferAlpha = 0;//1
+	int j = 0;
 
 	for (size_t i = 0; i < 512 * 512 * 4; i++)
 	{
@@ -83,9 +83,24 @@ Font* Font::load(float height, Font* font)
 			pColorBuffer[i] = pBufferAlpha[counterBufferAlpha];
 			counterBufferAlpha++;
 		}
+		
 		else
-		{
-			pColorBuffer[i] = 255;
+		{	
+			if(j == 0) 
+			{
+				pColorBuffer[i] = randomColor.r;
+				j++;
+			} else if(j == 1)
+			{
+				pColorBuffer[i] = randomColor.g;
+				j++;
+			}
+			else 
+			{
+				pColorBuffer[i] = randomColor.b;
+				j = 0;
+			}
+			
 		}
 	}
 
@@ -109,7 +124,7 @@ Vec2 Font::getTextSize(const char* text) const
 }
 
 
-void Font::draw(const char* text, const Vec2& pos, SColor randomColor) const
+void Font::draw(const char* text, const Vec2& pos) const
 {
 	*c_xpos = pos.getPosX();
 	*c_ypos = pos.getPosY();
@@ -124,7 +139,7 @@ void Font::draw(const char* text, const Vec2& pos, SColor randomColor) const
 			pRectInfo,
 			1);
 
-		lgfx_setcolor(randomColor.r, randomColor.g, randomColor.b, 255);
+		//lgfx_setcolor(randomColor.r, randomColor.g, randomColor.b, 255);
 
 		ltex_drawrotsized(tex, *c_xpos, *c_ypos,
 			0, 0.5, 0.5,

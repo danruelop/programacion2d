@@ -1,0 +1,4 @@
+﻿  main.cpp
+main.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function main
+..\lib\glfw3.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+C:\Users\jorge.paz\source\repos\plantilla\project\x64\Debug\programacion2d.exe : fatal error LNK1120: 1 unresolved externals

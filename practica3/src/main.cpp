@@ -71,13 +71,9 @@ int main() {
 
 		while (!glfwWindowShouldClose(window))
 		{
-			
-
 			glfwGetWindowSize(window, p_actualWindowsWidth, p_actualWindowsHeight);
-
 			lgfx_setup2d(actualWindowsWidth, actualWindowsHeight);
 
-			
 			static float previous_seconds = static_cast<float>(glfwGetTime());
 			float current_seconds = static_cast<float>(glfwGetTime());
 			float elapsed_seconds = current_seconds - previous_seconds;
@@ -113,25 +109,15 @@ int main() {
 				Font newFont = Font();
 				Font* pNewFont = &newFont;
 				CPrintedText newText = CPrintedText(pNewFont, 500, randY, selectedFont, randSpeed, randColor, "Hola mundo");
-				
-				
+						
 				newText.printText();
 				
 				//guardamos en la lista
-				textsOnScreen[textCounter] = newText;
-				textCounter++;
+				
 			}
 
 			//recorremos la lista y vamos cambiando los atributos necesarios
-			if(textCounter > 0)
-			{
-				for (int i = 0; i < textCounter; i++)
-				{
-					CPrintedText actualText = textsOnScreen[i];
-					actualText.setPosX(actualText.posX - 100);
-					actualText.printText();
-				}
-			}
+			
 			
 
 			//obtener tamaño de la ventana			
@@ -142,6 +128,7 @@ int main() {
 
 			//check and call events
 			glfwPollEvents();
+			
 
 			
 		}

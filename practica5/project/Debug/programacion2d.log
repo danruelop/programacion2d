@@ -1,0 +1,23 @@
+﻿  Collider.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(51,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(80,29): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(84,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(85,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(87,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(87,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(89,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(89,18): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(192,29): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(248,36): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Collider.cpp(249,36): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Sprite.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.h(20,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(151,10): warning C4244: 'return': conversion from 'const int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(189,27): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(193,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(193,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(201,27): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(205,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\lib\Sprite.cpp(205,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  programacion2d.vcxproj -> C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica5\project\Debug\programacion2d.exe

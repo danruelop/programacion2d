@@ -10,7 +10,7 @@ World::World(float clearRed, float clearGreen, float clearBlue, const ltex_t* ba
 	lBack1 = back1;
 	lBack2 = back2;
 	lBack3 = back3;
-
+	
 
 }
 
@@ -29,29 +29,29 @@ float World::getClearBlue() const
 	return fClearBlue;
 }
 
-const ltex_t* World::getBackground(size_t layer) const
+const ltex_t* World::getBackground(size_t _layer) const
 {
 	return nullptr;
 }
 
-float World::getScrollRatio(size_t layer) const
+float World::getScrollRatio(size_t _layer) const
 {
 	return 0.0f;
 }
 
-void World::setScrollRatio(size_t layer, float ratio)
+void World::setScrollRatio(size_t _layer, float _ratio)
 {
-	scrollRatio = ratio;
+	scrollRatio = _ratio;
 }
 
-const Vec2& World::getScrollSpeed(size_t layer) const
+const Vec2& World::getScrollSpeed(size_t _layer) const
 {
 	return Vec2(0, 0);
 }
 
-void World::setScrollSpeed(size_t layer, const Vec2& speed)
+void World::setScrollSpeed(size_t _layer, const Vec2& _speed)
 {
-	scrollSpeed = speed;
+	scrollSpeed = _speed;
 }
 
 const Vec2& World::getCameraPosition() const
@@ -59,36 +59,43 @@ const Vec2& World::getCameraPosition() const
 	return Vec2(0, 0);
 }
 
-void World::setCameraPosition(const Vec2& pos)
+void World::setCameraPosition(const Vec2& _pos)
 {
-	cameraPosition = pos;
+	cameraPosition = _pos;
 }
 
-void World::addSprite(Sprite& sprite)
+void World::addSprite(Sprite& _sprite)
 {
 
-	allGameSprites.push_back(sprite);
-
-}
-
-void World::removeSprite(Sprite& sprite)
-{
-
-	allGameSprites.erase(std::remove(allGameSprites.begin(), allGameSprites.end(), sprite), allGameSprites.end());
+	allGameSprites.push_back(_sprite);
 
 }
 
-void World::update(float deltaTime)
+void World::removeSprite(Sprite& _sprite)
+{
+	int index = 0;
+	for each (Sprite actualSprite in allGameSprites)
+	{	
+		if (actualSprite.getTexture() == _sprite.getTexture())
+		{
+			allGameSprites.erase(allGameSprites.begin() + index);
+			return;
+		}
+		index++;
+	}
+}
+
+void World::update(float _deltaTime)
 {
 
 }
 
-void World::draw(const Vec2& screenSize)
+void World::draw(const Vec2& _screenSize)
 {
 	lgfx_clearcolorbuffer(fClearRed, fClearGreen, fClearBlue);
 	for each (Sprite nextSprite in allGameSprites)
 	{
-		nextSprite.draw();
+		nextSprite.draw(1);
 	}
 
 	lgfx_setorigin(getCameraPosition().x, getCameraPosition().y);

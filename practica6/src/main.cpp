@@ -2,7 +2,7 @@
 #define LITE_GFX_IMPLEMENTATION
 
 #include <iostream>
-#include "Sprite.h"
+
 #include "World.h"
 #include "Collider.h"
 
@@ -20,7 +20,7 @@ int main()
 		printf("error");
 	}
 
-	GLFWwindow* window = glfwCreateWindow(1000, 700, "Practica 5", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(1000, 800, "Practica 6", nullptr, nullptr);
 	if (!window)
 	{
 		printf("error 2");
@@ -29,7 +29,7 @@ int main()
 	glfwMakeContextCurrent(window);
 	//glfwGetWindowSize(GLFWwindow * window, int* width, int* height)
 
-	lgfx_setup2d(1920, 1080);
+	lgfx_setup2d(1000, 800);
 
 	int wXsize = 0, wYsize = 0;
 	double xpos, ypos;
@@ -51,12 +51,57 @@ int main()
 	Bee.setFps(8);
 	Bee.setAngle(0.0f);
 	Bee.setBlend(BLEND_ALPHA);
-	Bee.setCollisionType(Sprite::COLLISION_PIXELS);
-	Bee.setPixels(BeeTexture);
+	Bee.setCollisionType(Sprite::COLLISION_NONE);
+	//Bee.setPixels(BeeTexture);
+
+	Sprite Level(LevelTexture, 8, 1);
+	Level.setScale(Vec2(1, 1));
+	Level.setPivot(Vec2(0, 0));
+	Level.setFps(8);
+	Level.setAngle(0.0f);
+	Level.setBlend(BLEND_ALPHA);
+	Level.setCollisionType(Sprite::COLLISION_NONE);
+	//Level.setPixels(LevelTexture);
+
+	Sprite Trees1(Trees1Texture, 8, 1);
+	Trees1.setScale(Vec2(1, 1));
+	Trees1.setPivot(Vec2(0, 0));
+	Trees1.setFps(8);
+	Trees1.setAngle(0.0f);
+	Trees1.setBlend(BLEND_ALPHA);
+	Trees1.setCollisionType(Sprite::COLLISION_NONE);
+	//Trees1.setPixels(Trees1Texture);
+
+	Sprite Trees2(Trees2Texture, 8, 1);
+	Trees2.setScale(Vec2(1, 1));
+	Trees2.setPivot(Vec2(0, 0));
+	Trees2.setFps(8);
+	Trees2.setAngle(0.0f);
+	Trees2.setBlend(BLEND_ALPHA);
+	Trees2.setCollisionType(Sprite::COLLISION_NONE);
+	//Trees2.setPixels(Trees2Texture);
+
+	Sprite Clouds(CloudsTexture, 8, 1);
+	Clouds.setScale(Vec2(1, 1));
+	Clouds.setPivot(Vec2(0, 0));
+	Clouds.setFps(8);
+	Clouds.setAngle(0.0f);
+	Clouds.setBlend(BLEND_ALPHA);
+	Clouds.setCollisionType(Sprite::COLLISION_NONE);
+	//Clouds.setPixels(CloudsTexture);
+
 	//set pixels array
 
 	World gameWorld(0.15f, 0.15f, 0.15f, LevelTexture, Trees1Texture, Trees2Texture, CloudsTexture);
 	gameWorld.setCameraPosition(Vec2(0, 0));
+
+	//gameWorld.addSprite(Bee);
+	gameWorld.addSprite(Clouds);
+	gameWorld.addSprite(Level);
+	gameWorld.addSprite(Trees1);
+	gameWorld.addSprite(Trees2);
+	
+
 	
 
 	bool mustReverseRotation = true, mustReverseScale = false;
@@ -90,9 +135,10 @@ int main()
 		lgfx_setcolor(Bee.getRed(), Bee.getGreen(), Bee.getBlue(), Bee.getAlpha());
 		Bee.update(elapsed_seconds);
 		Bee.setPosition(Vec2(xpos, ypos));
-		Bee.draw();
+		
 
-
+		gameWorld.draw(Vec2(1920,1080));
+		Bee.draw(0.125);
 
 		
 

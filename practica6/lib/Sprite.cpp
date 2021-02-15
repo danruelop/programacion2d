@@ -74,12 +74,12 @@
 		return Alpha;
 	}
 
-	void Sprite::setColor(float r, float g, float b, float a)
+	void Sprite::setColor(float _R, float _G, float _B, float _A)
 	{
-		Red = r;
-		Green = g;
-		Blue = b;
-		Alpha = a;
+		Red = _R;
+		Green = _G;
+		Blue = _B;
+		Alpha = _A;
 	}
 
 	// TRANSFORM
@@ -88,9 +88,9 @@
 		return NewTexturePosition;
 	}
 
-	void Sprite::setPosition(const Vec2& pos)
+	void Sprite::setPosition(const Vec2& _pos)
 	{
-		NewTexturePosition = pos;
+		NewTexturePosition = _pos;
 	}
 
 	float Sprite::getAngle() const
@@ -98,9 +98,9 @@
 		return Angle;
 	}
 
-	void Sprite::setAngle(float angle)
+	void Sprite::setAngle(float _angle)
 	{
-		Angle = angle;
+		Angle = _angle;
 	}
 
 	const Vec2& Sprite::getScale() const
@@ -108,9 +108,9 @@
 		return Scale;
 	}
 
-	void Sprite::setScale(const Vec2& scale)
+	void Sprite::setScale(const Vec2& _scale)
 	{
-		Scale = scale;
+		Scale = _scale;
 	}
 
 	// Tamaño de un frame multiplicado por la escala
@@ -126,9 +126,9 @@
 		return Pivot;
 	}
 
-	void Sprite::setPivot(const Vec2& pivot)
+	void Sprite::setPivot(const Vec2& _pivot)
 	{
-		Pivot = pivot;
+		Pivot = _pivot;
 	}
 
 	int Sprite::getHframes() const
@@ -147,9 +147,9 @@
 	{
 		return Fps;
 	}
-	void Sprite::setFps(int fps)
+	void Sprite::setFps(int _fps)
 	{
-		Fps = fps;
+		Fps = _fps;
 	}
 
 	// Frame actual de animación
@@ -158,21 +158,21 @@
 		return Frame;
 	}
 
-	void Sprite::setCurrentFrame(int frame)
+	void Sprite::setCurrentFrame(int _frame)
 	{
-		Frame = frame;
+		Frame = _frame;
 	}
 
-	void Sprite::update(float deltaTime)
+	void Sprite::update(float _deltaTime)
 	{
 
-		Vec2 UpdatePosition = Vec2(getPosition().x + 1 * deltaTime, getPosition().y + 1 * deltaTime);
+		Vec2 UpdatePosition = Vec2(getPosition().x + 1 * _deltaTime, getPosition().y + 1 * _deltaTime);
 		setPosition(UpdatePosition);
 		NewTexturePosition = getPosition();
 
 		if (OldTexturePosition.x <= NewTexturePosition.x && getAngle() <= 15)
 		{
-			setAngle(getAngle() + 64 * deltaTime);
+			setAngle(getAngle() + 64 * _deltaTime);
 
 			if (getAngle() > 15)
 			{
@@ -182,7 +182,7 @@
 
 		else if (OldTexturePosition.x >= NewTexturePosition.x && getAngle() >= -15)
 		{
-			setAngle(getAngle() - 64 * deltaTime);
+			setAngle(getAngle() - 64 * _deltaTime);
 
 			if (getAngle() < -15)
 			{
@@ -223,9 +223,9 @@
 
 	}
 
-	void Sprite::draw() const
+	void Sprite::draw(float _xSize) const
 	{
-		ltex_drawrotsized(getTexture(), getPosition().x, getPosition().y, getAngle(), getPivot().x, getPivot().y, getSize().x*0.125, getSize().y, InitialFrameSize, 0, FinalFrameSize, 1);
+		ltex_drawrotsized(getTexture(), getPosition().x, getPosition().y, getAngle(), getPivot().x, getPivot().y, getSize().x*_xSize, getSize().y, InitialFrameSize, 0, FinalFrameSize, 1);
 	}
 
 

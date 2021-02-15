@@ -14,3 +14,5 @@ C:\Users\JdPC\Desktop\practica5\project\Debug\programacion2d.exe
 C:\Users\JdPC\Desktop\practica5\project\Debug\programacion2d.pdb
 C:\Users\JdPC\source\repos\Practica6_Prog2D\project\Debug\programacion2d.exe
 C:\Users\JdPC\source\repos\Practica6_Prog2D\project\Debug\programacion2d.pdb
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\project\Debug\programacion2d.exe
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\project\Debug\programacion2d.pdb

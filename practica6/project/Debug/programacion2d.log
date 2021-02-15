@@ -1,1 +1,10 @@
-﻿  programacion2d.vcxproj -> C:\Users\JdPC\source\repos\Practica6_Prog2D\project\Debug\programacion2d.exe
+﻿  main.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.h(20,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(39,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(137,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(137,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(36,8): warning C4101: 'bkgImagesRepeated': unreferenced local variable
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(186,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(190,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(190,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  programacion2d.vcxproj -> C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\project\Debug\programacion2d.exe

@@ -98,5 +98,5 @@ public:
 	float getCurrentFrame() const;
 	void setCurrentFrame(int frame);
 	void update(float deltaTime);
-	void draw() const;
+	void draw(float _xSize) const;
 };

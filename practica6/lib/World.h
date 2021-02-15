@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "litegfx.h"
 #include "Vec2.h"
 #include "Sprite.h"
 

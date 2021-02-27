@@ -6,30 +6,27 @@
 #include <Collider.h>
 #include "Vec2.h"
 
+enum EIdleState 
+{
+	IDLE,
+	LEFT,
+	RIGHT
+};
+
+enum ESpriteType 
+{
+	SINGULAR,
+	FULLBACKGROUND,
+	HORIZONTALBACKGROUND,
+};
+
 class Sprite {
 
+
+
+//variables
 public:
-	float Blue = 1.0f, Green = 1.0f, Red = 1.0f, Alpha = 1.0f, Angle = 0.0f;
-	lblend_t bMode = BLEND_ADD;
-	int hFrames, vFrames;
-	const ltex_t* BeeTexture;
-	Vec2 NewTexturePosition, OldTexturePosition, Scale, Pivot;
-	float InitialFrameSize = 0, FinalFrameSize = 1;
-	int Frame = 0, Fps = 0;
-	int fps = 60;
-	int frameTime = 0.0;
-	bool mustIncreaseScale;
-	unsigned char* tempPixels = new unsigned char[500 * 500];
-	//pixels array
-	unsigned char* pixels;
-
-	unsigned char* getPixels();
-	//void setPixels(unsigned char* _pixels);
-
-
-	//Pued ser un void y luego con un for iterar el array que le pasas por paramtero para luego cambiarle los valores
-	//void pixelsAndPosition(int* solArray[], unsigned char* pixels, int xpos, int ypos, int textureWidth, int textureHight);
-
+	
 	// COLLISION	
 	typedef enum {
 		COLLISION_NONE,
@@ -37,6 +34,112 @@ public:
 		COLLISION_RECT,
 		COLLISION_PIXELS
 	} CollisionType;
+
+	const ltex_t* texture;
+
+	ESpriteType spriteType;
+	char* spriteName;
+
+	//RGBA
+	float Blue = 1.0f;
+	float Green = 1.0f; 
+	float Red = 1.0f; 
+	float Alpha = 1.0f; 
+	float Angle = 0.0f;
+
+	//BLEND MODE
+	lblend_t bMode = BLEND_ADD;
+
+	Vec2 NewTexturePosition;
+	Vec2 OldTexturePosition; 
+	Vec2 Scale; 
+	Vec2 Pivot;
+	
+	//Frames
+
+	int hFrames;
+	int vFrames;
+	float InitialFrameSize = 0;
+	float FinalFrameSize = 1;
+	int Frame = 0;
+	int Fps = 0;
+	int fps = 60;
+	int frameTime = 0.0;
+	bool mustIncreaseScale;
+	unsigned char* tempPixels = new unsigned char[500 * 500];
+
+	//pixels array
+	unsigned char* pixels;
+	EIdleState spriteIdleState = EIdleState::IDLE;
+	float scrollRatio = 1.0f;
+
+	//Funciones
+
+public:
+
+	Sprite(const ltex_t* tex, int hframes = 1, int vframes = 1);
+	~Sprite();
+
+	char* getSpriteName() { return spriteName; }
+	void setSpriteName(char* _newSpriteName);
+
+	const ltex_t* getTexture() const { return texture; }
+	static void setTexture(const ltex_t* tex, int hframes = 1, int vframes = 1);
+
+	ESpriteType getSpriteType() { return spriteType; }
+	void setSpriteType(ESpriteType _newSpriteType);
+
+	float getRed() const { return Red; }
+	float getGreen() const { return Green; }
+	float getBlue() const { return Blue; }
+	float getAlpha() const { return Alpha; }
+	void setColor(float r, float g, float b, float a);
+
+	float getAngle() const { return Angle; }
+	void setAngle(float angle);
+
+	lblend_t getBlend() const { return bMode; }
+	void setBlend(lblend_t mode);
+
+	const Vec2& getPosition() const { return NewTexturePosition; }
+	void setPosition(const Vec2& pos);
+
+	const Vec2& getScale() const { return Scale; }
+	void setScale(const Vec2& scale);
+	const Vec2& getPivot() const { return Pivot; }
+	void setPivot(const Vec2& pivot);
+	Vec2 getSize() const;
+
+	int getHframes() const { return hFrames; }
+	int getVframes() const { return vFrames; }
+
+	int getFps() const { return Fps; }
+	void setFps(int fps);
+
+	float getCurrentFrame() const;
+	void setCurrentFrame(int frame);
+	void update(float deltaTime);
+
+	void draw(float _xSize) const;
+
+	unsigned char* getPixels() { return pixels; }
+	void setPixels(const ltex_t* tex);
+
+	float getScrollRatio() { return scrollRatio; }
+	void setScrollRatio(float _newScrollRatio);
+
+	EIdleState getIdleState() { return spriteIdleState; }
+	void setIdleState(EIdleState _newIdleState);
+
+	typedef void (*CallbackFunc)(Sprite&, float);
+
+	void setCallback(CallbackFunc func);
+
+	void* getUserData();
+	void setUserData(void* data);
+	
+	void setupSprite(char* _spriteName, ESpriteType _spriteType, Vec2 _scale, Vec2 _pivot, float _Fps, float _angle,
+		lblend_t _Bmode, CollisionType _collisionType, float _scrollRatio);
 
 	CollisionType TCollision = COLLISION_NONE;
 	const CircleCollider* CCollider;
@@ -48,55 +151,6 @@ public:
 	bool collides(const Sprite& other) const; 
 	bool checkCollision(Sprite other);
 
-	// Tpo de la función callback
-	typedef void (*CallbackFunc)(Sprite&, float);
 
-	// Indicamos el número de frames en horizontal y vertical
-	// que tendrá la imagen del sprite
-	Sprite(const ltex_t* tex, int hframes = 1, int vframes = 1);
-
-	// Establecemos puntero a la función callback
-	void setCallback(CallbackFunc func);
-
-	// Puntero genérico a datos (normalmente introducimos aquí los datos
-	// del sprite que se van a utilizar en la función callback)
-	void* getUserData();
-	void setUserData(void* data);
-	const ltex_t* getTexture() const; 
-	static void setTexture(const ltex_t* tex, int hframes = 1, int vframes = 1);
-	lblend_t getBlend() const;
-	void setBlend(lblend_t mode);
-	void setPixels(const ltex_t* tex);
-
-	float getRed() const;
-	float getGreen() const;
-	float getBlue() const;
-	float getAlpha() const;
-	void setColor(float r, float g, float b, float a);
-	const Vec2& getPosition() const;
-	void setPosition(const Vec2& pos);
-	float getAngle() const;
-	void setAngle(float angle);
-	const Vec2& getScale() const;
-	void setScale(const Vec2& scale);
-
-	// Tamaño de un frame multiplicado por la escala
-	Vec2 getSize() const;
-
-	// Este valor se pasa a ltex_drawrotsized en el pintado
-	// para indicar el pivote de rotación
-	const Vec2& getPivot() const;
-	void setPivot(const Vec2& pivot);
-	int getHframes() const;
-	int getVframes() const;
-
-	// Veces por segundo que se cambia el frame de animación
-	int getFps() const;
-	void setFps(int fps);
-
-	// Frame actual de animación
-	float getCurrentFrame() const;
-	void setCurrentFrame(int frame);
-	void update(float deltaTime);
-	void draw(float _xSize) const;
+	
 };

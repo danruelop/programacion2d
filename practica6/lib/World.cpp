@@ -11,32 +11,17 @@ World::World(float clearRed, float clearGreen, float clearBlue, const ltex_t* ba
 	lBack2 = back2;
 	lBack3 = back3;
 	
-
 }
 
-float World::getClearRed() const
+void World::setPlayerIdleState(EIdleState _newPlayerIdleState)
 {
-	return fClearRed;
+	playerIdleState = _newPlayerIdleState;
 }
 
-float World::getClearGreen() const
-{
-	return fClearGreen;
-}
-
-float World::getClearBlue() const
-{
-	return fClearBlue;
-}
 
 const ltex_t* World::getBackground(size_t _layer) const
 {
 	return nullptr;
-}
-
-float World::getScrollRatio(size_t _layer) const
-{
-	return 0.0f;
 }
 
 void World::setScrollRatio(size_t _layer, float _ratio)
@@ -44,19 +29,9 @@ void World::setScrollRatio(size_t _layer, float _ratio)
 	scrollRatio = _ratio;
 }
 
-const Vec2& World::getScrollSpeed(size_t _layer) const
-{
-	return Vec2(0, 0);
-}
-
 void World::setScrollSpeed(size_t _layer, const Vec2& _speed)
 {
 	scrollSpeed = _speed;
-}
-
-const Vec2& World::getCameraPosition() const
-{
-	return Vec2(0, 0);
 }
 
 void World::setCameraPosition(const Vec2& _pos)
@@ -87,6 +62,28 @@ void World::removeSprite(Sprite& _sprite)
 
 void World::update(float _deltaTime)
 {
+	lgfx_setorigin(getCameraPosition().x, getCameraPosition().y);
+
+	for each(Sprite nextSprite in allGameSprites)
+	{
+		Vec2* updatedPosition = new Vec2(nextSprite.getPosition().x, nextSprite.getPosition().y);
+		float updatedPositonX = updatedPosition->x;
+		float updatedPositonY = updatedPosition->y;
+		
+		if(getPlayerIdleState() == EIdleState::RIGHT)
+		{
+			--updatedPositonX* _deltaTime * nextSprite.getScrollRatio();
+			--updatedPositonY* _deltaTime * nextSprite.getScrollRatio();
+			cameraPosition.x++* _deltaTime;
+		} else if(getPlayerIdleState() == EIdleState::LEFT)
+		{
+			++updatedPositonX* _deltaTime * nextSprite.getScrollRatio();
+			++updatedPositonY* _deltaTime * nextSprite.getScrollRatio();
+			cameraPosition.x--* _deltaTime;
+		}
+		nextSprite.setPosition(*updatedPosition);
+		
+	}
 
 }
 
@@ -95,8 +92,33 @@ void World::draw(const Vec2& _screenSize)
 	lgfx_clearcolorbuffer(fClearRed, fClearGreen, fClearBlue);
 	for each (Sprite nextSprite in allGameSprites)
 	{
-		nextSprite.draw(1);
+		if(nextSprite.getSpriteType() == ESpriteType::SINGULAR){ nextSprite.draw(1); }
+		if(nextSprite.getSpriteType() == ESpriteType::HORIZONTALBACKGROUND) 
+		{
+			int numOfImages = _screenSize.x / nextSprite.getSize().x;
+			numOfImages++;
+			lgfx_setblend(BLEND_ALPHA);
+			ltex_drawrotsized(nextSprite.getTexture(),
+				nextSprite.getPosition().x, nextSprite.getPosition().y,
+				nextSprite.getAngle(),
+				nextSprite.getPivot().x, nextSprite.getPivot().y,
+				nextSprite.getSize().x * numOfImages, nextSprite.getSize().y * numOfImages,
+				0, 0,
+				numOfImages, numOfImages);
+		}
+		if(nextSprite.getSpriteType() == ESpriteType::FULLBACKGROUND)
+		{
+			int numOfImages = _screenSize.x / nextSprite.getSize().x;
+			numOfImages++;
+			lgfx_setblend(BLEND_ALPHA);
+			ltex_drawrotsized(nextSprite.getTexture(),
+				nextSprite.getPosition().x, nextSprite.getPosition().y,
+				nextSprite.getAngle(),
+				nextSprite.getPivot().x, nextSprite.getPivot().y,
+				nextSprite.getSize().x * numOfImages, nextSprite.getSize().y * numOfImages,
+				0, 0,
+				numOfImages, numOfImages);
+		}
 	}
-
-	lgfx_setorigin(getCameraPosition().x, getCameraPosition().y);
 }
+

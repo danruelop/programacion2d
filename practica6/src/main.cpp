@@ -9,7 +9,7 @@
 using namespace std;
 
 ltex_t* loadTexture(const char* filename);
-void printBackground(ltex_t* loadedTexture, int wXsize);
+//void printBackground(ltex_t* loadedTexture, int wXsize);
 
 
 int main()
@@ -45,65 +45,33 @@ int main()
 	ltex_t* Trees2Texture = loadTexture("data/images/trees2.png");
 	ltex_t* CloudsTexture = loadTexture("data/images/clouds.png");
 
+	//SETUP SPRITE: Tipo de Sprite, Escala, Pivote, Fps, Angulo, Modo de Blend, Tipo de Colision
+
 	Sprite Bee(BeeTexture, 8, 1);
-	Bee.setScale(Vec2(1, 1));
-	Bee.setPivot(Vec2(0.5, 0.5));
-	Bee.setFps(8);
-	Bee.setAngle(0.0f);
-	Bee.setBlend(BLEND_ALPHA);
-	Bee.setCollisionType(Sprite::COLLISION_NONE);
-	//Bee.setPixels(BeeTexture);
+	Bee.setupSprite("beeSprite", ESpriteType::SINGULAR, Vec2(1, 1), Vec2(0, 0), 8, 0.f, BLEND_ALPHA, Sprite::COLLISION_NONE, 1);
 
 	Sprite Level(LevelTexture, 8, 1);
-	Level.setScale(Vec2(1, 1));
-	Level.setPivot(Vec2(0, 0));
-	Level.setFps(8);
-	Level.setAngle(0.0f);
-	Level.setBlend(BLEND_ALPHA);
-	Level.setCollisionType(Sprite::COLLISION_NONE);
-	//Level.setPixels(LevelTexture);
+	Level.setupSprite("levelSprite", ESpriteType::SINGULAR, Vec2(1, 1), Vec2(0, 0), 8, 0.f, BLEND_ALPHA, Sprite::COLLISION_NONE , 1);
 
 	Sprite Trees1(Trees1Texture, 8, 1);
-	Trees1.setScale(Vec2(1, 1));
-	Trees1.setPivot(Vec2(0, 0));
-	Trees1.setFps(8);
-	Trees1.setAngle(0.0f);
-	Trees1.setBlend(BLEND_ALPHA);
-	Trees1.setCollisionType(Sprite::COLLISION_NONE);
-	//Trees1.setPixels(Trees1Texture);
+	Trees1.setupSprite("tree1Sprite", ESpriteType::HORIZONTALBACKGROUND, Vec2(1, 1), Vec2(0, 0), 8, 0.f, BLEND_ALPHA, Sprite::COLLISION_NONE, 0.8);
 
 	Sprite Trees2(Trees2Texture, 8, 1);
-	Trees2.setScale(Vec2(1, 1));
-	Trees2.setPivot(Vec2(0, 0));
-	Trees2.setFps(8);
-	Trees2.setAngle(0.0f);
-	Trees2.setBlend(BLEND_ALPHA);
-	Trees2.setCollisionType(Sprite::COLLISION_NONE);
-	//Trees2.setPixels(Trees2Texture);
+	Trees2.setupSprite("tree2Sprite", ESpriteType::HORIZONTALBACKGROUND, Vec2(1, 1), Vec2(0,0), 8, 0.f, BLEND_ALPHA, Sprite::COLLISION_NONE, 0.6);
 
 	Sprite Clouds(CloudsTexture, 8, 1);
-	Clouds.setScale(Vec2(1, 1));
-	Clouds.setPivot(Vec2(0, 0));
-	Clouds.setFps(8);
-	Clouds.setAngle(0.0f);
-	Clouds.setBlend(BLEND_ALPHA);
-	Clouds.setCollisionType(Sprite::COLLISION_NONE);
-	//Clouds.setPixels(CloudsTexture);
+	Clouds.setupSprite("cloudsSprite", ESpriteType::FULLBACKGROUND, Vec2(1, 1), Vec2(0, 0), 8, 0.f, BLEND_ALPHA, Sprite::COLLISION_NONE, 0.4);
 
 	//set pixels array
 
 	World gameWorld(0.15f, 0.15f, 0.15f, LevelTexture, Trees1Texture, Trees2Texture, CloudsTexture);
 	gameWorld.setCameraPosition(Vec2(0, 0));
 
-	//gameWorld.addSprite(Bee);
 	gameWorld.addSprite(Clouds);
-	gameWorld.addSprite(Level);
 	gameWorld.addSprite(Trees1);
 	gameWorld.addSprite(Trees2);
+	gameWorld.addSprite(Level);
 	
-
-	
-
 	bool mustReverseRotation = true, mustReverseScale = false;
 
 	while (!glfwWindowShouldClose(window))
@@ -113,6 +81,8 @@ int main()
 		float current_seconds = static_cast<float>(glfwGetTime());
 		float elapsed_seconds = current_seconds - previous_seconds;
 		previous_seconds = current_seconds;
+
+		gameWorld.setPlayerIdleState(Bee.getIdleState());
 
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
@@ -126,22 +96,19 @@ int main()
 
 		//Pintar las imagenes en el centro de la pantalla siempre
 
-
 		//Limpiar el backbuffer
 		lgfx_clearcolorbuffer(0.5f, 0.5f, 0.5f);
-
 
 		lgfx_setblend(Bee.getBlend());
 		lgfx_setcolor(Bee.getRed(), Bee.getGreen(), Bee.getBlue(), Bee.getAlpha());
 		Bee.update(elapsed_seconds);
 		Bee.setPosition(Vec2(xpos, ypos));
 		
-
-		gameWorld.draw(Vec2(1920,1080));
+		gameWorld.update(elapsed_seconds);
+		gameWorld.draw(Vec2(wXsize, wXsize));
 		Bee.draw(0.125);
-
 		
-
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -174,22 +141,5 @@ ltex_t* loadTexture(const char* filename)
 	return texture;
 }
 
-void printBackground(ltex_t* loadedTexture, int wXsize)
-{
-	//En Funcion del tamaño de la ventana calculo cuantas imagenes caben a lo ancho de esta
-	// y voy creando copias de esta mediante el uso de bucles for
-	int bkgImagesRepeated = wXsize / loadedTexture->width;
-
-	for (int i = 0; i <= bkgImagesRepeated; i++)
-	{
-		lgfx_setblend(BLEND_ALPHA);
-		ltex_draw(loadedTexture, loadedTexture->width * i, 0);
-		for (int j = 1; j <= bkgImagesRepeated + 1; j++)
-		{
-			lgfx_setblend(BLEND_ALPHA);
-			ltex_draw(loadedTexture, loadedTexture->width * i, loadedTexture->height * j);
-		}
-	}
-}
 
 

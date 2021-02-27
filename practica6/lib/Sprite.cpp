@@ -9,26 +9,27 @@
 	Sprite::Sprite(const ltex_t* tex, int hframes, int vframes) 
 	{
 		
-		BeeTexture = tex;
+		texture = tex;
 		hFrames = hframes;
 		vFrames = vframes;
 
 	}
 
-	const ltex_t* Sprite::getTexture() const
+	Sprite::~Sprite()
 	{
-		return BeeTexture;
 	}
+
+	void Sprite::setSpriteName(char* _newSpriteName)
+	{
+		spriteName = _newSpriteName;
+	}
+
 
 	void Sprite::setTexture(const ltex_t* tex, int hframes, int vframes)
 	{
 		Sprite* newTexture = new Sprite(tex, hframes, vframes);
 	}
 
-	lblend_t Sprite::getBlend() const 
-	{
-		return bMode;
-	}
 
 	void Sprite::setBlend(lblend_t mode) 
 	{
@@ -48,31 +49,22 @@
 		
 	}
 
-	unsigned char* Sprite::getPixels() 
+	void Sprite::setScrollRatio(float _newScrollRatio)
 	{
-		return pixels;
+		scrollRatio = _newScrollRatio;
 	}
 
-	// COLOR
-	float Sprite::getRed() const
+	void Sprite::setIdleState(EIdleState _newIdleState)
 	{
-		return Red;
+		spriteIdleState = _newIdleState;
 	}
 
-	float Sprite::getGreen() const
+
+	void Sprite::setSpriteType(ESpriteType _newSpriteType)
 	{
-		return Green;
+		spriteType = _newSpriteType;
 	}
 
-	float Sprite::getBlue() const
-	{
-		return Blue;
-	}
-
-	float Sprite::getAlpha() const
-	{
-		return Alpha;
-	}
 
 	void Sprite::setColor(float _R, float _G, float _B, float _A)
 	{
@@ -83,30 +75,19 @@
 	}
 
 	// TRANSFORM
-	const Vec2& Sprite::getPosition() const
-	{
-		return NewTexturePosition;
-	}
+
 
 	void Sprite::setPosition(const Vec2& _pos)
 	{
 		NewTexturePosition = _pos;
 	}
 
-	float Sprite::getAngle() const
-	{
-		return Angle;
-	}
 
 	void Sprite::setAngle(float _angle)
 	{
 		Angle = _angle;
 	}
 
-	const Vec2& Sprite::getScale() const
-	{
-		return Scale;
-	}
 
 	void Sprite::setScale(const Vec2& _scale)
 	{
@@ -121,32 +102,18 @@
 
 	// Este valor se pasa a ltex_drawrotsized en el pintado
 	// para indicar el pivote de rotación
-	const Vec2& Sprite::getPivot() const
-	{
-		return Pivot;
-	}
+
 
 	void Sprite::setPivot(const Vec2& _pivot)
 	{
 		Pivot = _pivot;
 	}
 
-	int Sprite::getHframes() const
-	{
-		return hFrames;
-	}
 
-	int Sprite::getVframes() const
-	{
-		return vFrames;
-	}
 
 
 	// Veces por segundo que se cambia el frame de animación
-	int Sprite::getFps() const
-	{
-		return Fps;
-	}
+
 	void Sprite::setFps(int _fps)
 	{
 		Fps = _fps;
@@ -172,6 +139,7 @@
 
 		if (OldTexturePosition.x <= NewTexturePosition.x && getAngle() <= 15)
 		{
+			setIdleState(EIdleState::RIGHT);
 			setAngle(getAngle() + 64 * _deltaTime);
 
 			if (getAngle() > 15)
@@ -182,6 +150,7 @@
 
 		else if (OldTexturePosition.x >= NewTexturePosition.x && getAngle() >= -15)
 		{
+			setIdleState(EIdleState::LEFT);
 			setAngle(getAngle() - 64 * _deltaTime);
 
 			if (getAngle() < -15)
@@ -192,6 +161,7 @@
 
 		if (OldTexturePosition.x == NewTexturePosition.x)
 		{
+			setIdleState(EIdleState::IDLE);
 			setAngle(0);
 		}
 
@@ -396,4 +366,17 @@
 	void Sprite::setUserData(void* data)
 	{
 
+	}
+
+	void Sprite::setupSprite(char* _spriteName, ESpriteType _spriteType, Vec2 _scale, Vec2 _pivot, float _Fps, float _angle, lblend_t _Bmode, CollisionType _collisionType, float _scrollRatio)
+	{
+		this->setSpriteName(_spriteName);
+		this->setSpriteType(_spriteType);
+		this->setScale(_scale);
+		this->setPivot(_pivot);
+		this->setFps(_Fps);
+		this->setAngle(_angle);
+		this->setBlend(_Bmode);
+		this->setCollisionType(_collisionType);
+		this->setScrollRatio(_scrollRatio);
 	}

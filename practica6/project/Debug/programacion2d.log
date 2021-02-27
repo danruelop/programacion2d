@@ -1,10 +1,32 @@
-﻿  main.cpp
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.h(20,18): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(39,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(137,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(137,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(36,8): warning C4101: 'bkgImagesRepeated': unreferenced local variable
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(186,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(190,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(190,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Sprite.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.h(67,18): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.cpp(125,10): warning C4244: 'return': conversión de 'const int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.cpp(189,38): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.cpp(377,16): warning C4244: 'argumento': conversión de 'float' a 'int'; posible pérdida de datos
+  World.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.h(67,18): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(76,34): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(77,34): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(78,22): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(81,34): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(82,34): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(83,22): warning C4552: "*": el resultado de la expresión no se usa
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(99,20): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(108,18): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(108,5): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(112,20): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(121,18): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\World.cpp(121,5): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  main.cpp
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\lib\Sprite.h(67,18): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(39,16): warning C4244: 'inicializando': conversión de 'double' a 'int'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(57,143): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(60,142): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(63,138): warning C4305: 'argumento': truncamiento de 'double' a 'float'
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(105,30): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(105,24): warning C4244: 'argumento': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(108,31): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(108,23): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\src\main.cpp(36,8): warning C4101: 'bkgImagesRepeated': variable local sin referencia
+  Generando código...
   programacion2d.vcxproj -> C:\Users\danru\Desktop\U-Tad\Programación 2D\Repo\programacion2d\practica6\project\Debug\programacion2d.exe
